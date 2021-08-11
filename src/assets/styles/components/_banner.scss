@@ -1,6 +1,7 @@
 .banner {
-  width: 100%;
   position: relative;
+  z-index: 1;
+  width: 100%;
   height: 250px;
   display: flex;
   justify-content: center;
@@ -10,9 +11,24 @@
     height: 100%;
 
     &-item {
+      position: relative;
       width: 100%;
       height: 620px;
       display: flex;
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 370px;
+        z-index: 1;
+        background: linear-gradient(
+          to top,
+          rgba($bg-site-light, 1),
+          transparent
+        );
+      }
       img {
         width: 100%;
         height: 100%;
@@ -23,7 +39,7 @@
     .slick-arrow {
       position: absolute;
       top: 0;
-      height: 250px;
+      height: 100%;
       width: 100px;
       z-index: 1;
       font-size: 32px;
@@ -34,12 +50,11 @@
       margin: 0;
       padding: 0;
       cursor: pointer;
+
       svg {
-        path {
-          fill: $light;
-        }
         margin-top: -15px;
       }
+
       &.slick-prev {
         left: 0;
       }
@@ -57,11 +72,17 @@
 
 @media (max-width: 576px) {
   .banner {
-    height: 200px;
+    height: 150px;
 
     &__slider {
       &-item {
         height: 300px;
+        &:before {
+          height: 100px;
+        }
+      }
+      .slick-arrow {
+        width: 50px;
       }
     }
   }

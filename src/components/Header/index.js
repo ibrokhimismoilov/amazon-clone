@@ -1,25 +1,23 @@
 import React from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { IoCartOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 import logoImg from "../../assets/images/png/amazon_logo.png";
+import { useStateValue } from "../../context/StateProvider";
 export default function Header() {
+  const [{ basket }] = useStateValue();
+
   return (
     <div className="header">
-      <div className="header__logo">
+      <Link to="/" className="header__logo">
         <img src={logoImg} alt="amazon" />
-      </div>
+      </Link>
       <div className="header__search">
         <input type="text" className="header__search-input" />
         <BiSearchAlt2 className="header__search-icon" />
       </div>
 
       <div className="header__nav">
-        {/* // translation
-        <div className="header__option">
-          <span className="header__option-lineOne">Hello gust</span>
-          <span className="header__option-linetwo">Sign in</span>
-        </div> */}
-
         <div className="header__option">
           <span className="header__option-lineOne">Hello gust</span>
           <span className="header__option-lineTwo">Sign in</span>
@@ -32,10 +30,10 @@ export default function Header() {
           <span className="header__option-lineOne">Your</span>
           <span className="header__option-lineTwo">Prime</span>
         </div>
-        <div className="header__option header__option-cart">
+        <Link to="/checkout" className="header__option header__option-cart">
           <IoCartOutline className="header__option-cart-icon" />
-          <span className="header__option-cart-text">$12 450 000 000</span>
-        </div>
+          <span className="header__option-cart-text">{basket?.length}</span>
+        </Link>
       </div>
     </div>
   );

@@ -6,17 +6,30 @@ import { SlideData } from "./slideData";
 import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 
-const PrevArrow = (props) => {
+const SlickPrevArrow = ({ currentSlide, slideCount, ...props }) => {
   return (
-    <div {...props}>
+    <div
+      {...props}
+      className={
+        "slick-prev slick-arrow" + (currentSlide === 0 ? " slick-disabled" : "")
+      }
+      aria-disabled={currentSlide === 0 ? true : false}
+    >
       <GrPrevious />
     </div>
   );
 };
 
-const NextArrow = (props) => {
+const SlickNextArrow = ({ currentSlide, slideCount, ...props }) => {
   return (
-    <div {...props}>
+    <div
+      {...props}
+      className={
+        "slick-next slick-arrow" +
+        (currentSlide === slideCount - 1 ? " slick-disabled" : "")
+      }
+      aria-disabled={currentSlide === slideCount - 1 ? true : false}
+    >
       <GrNext />
     </div>
   );
@@ -25,7 +38,6 @@ const NextArrow = (props) => {
 function Banner() {
   const slickSettings = {
     dots: false,
-    arrows: true,
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -33,8 +45,8 @@ function Banner() {
     speed: 1000,
     autoplaySpeed: 5000,
     draggable: false,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    nextArrow: <SlickNextArrow />,
+    prevArrow: <SlickPrevArrow />,
   };
 
   return (

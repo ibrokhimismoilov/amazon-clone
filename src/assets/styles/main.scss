@@ -1,9 +1,14 @@
 // base
 @import "./base/var";
 @import "./base/base";
+@import "./base/btn";
 //==================================================
 // components
 @import "./components/header";
 @import "./components/banner";
+@import "./components/product";
+@import "./components/subtotal";
 //==================================================
 // pages
+@import "./Pages/home";
+@import "./Pages/checkout";
