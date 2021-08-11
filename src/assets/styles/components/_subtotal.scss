@@ -1,0 +1,33 @@
+.subtotal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 300px;
+  width: 300px;
+  padding: 20px;
+  background: darken($light, 2%);
+  border-radius: 4px;
+  border: 1px solid #ddd;
+
+  &__gift {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    label {
+      user-select: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+    input {
+      margin-right: 5px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .subtotal {
+    margin-top: 40px;
+    max-width: 100%;
+    width: 100%;
+  }
+}

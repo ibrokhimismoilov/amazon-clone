@@ -1,0 +1,13 @@
+.home {
+  position: relative;
+  z-index: 2;
+  padding-bottom: 100px;
+
+  &__row {
+    &:first-child {
+      margin-top: -10px;
+    }
+    display: flex;
+    align-items: stretch;
+  }
+}
