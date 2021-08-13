@@ -11,10 +11,13 @@
   width: 100%;
   min-width: 100px;
   border: 1px solid #eee;
+  transition: box-shadow 0.3s ease;
+  &:hover {
+    box-shadow: 0 0 10px rgba(#000, 0.3);
+  }
 
   &__info {
     text-align: left;
-    // height: 100px;
     z-index: 1;
   }
 

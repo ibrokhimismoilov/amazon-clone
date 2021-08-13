@@ -1,0 +1,52 @@
+.payment {
+  padding-top: 50px;
+  padding-bottom: 100px;
+  .payment__checkout {
+    text-align: center;
+    padding: 10px;
+    font-weight: 400;
+  }
+
+  &__inner {
+    background: $light;
+  }
+
+  &__section {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+  }
+
+  &__title {
+    flex: 0.2;
+    margin-right: 10px;
+  }
+
+  &__details,
+  &__items,
+  &__address {
+    flex: 0.8;
+  }
+}
+
+@media (max-width: 576px) {
+  .payment {
+    &__section {
+      flex-wrap: wrap;
+    }
+    &__title {
+      flex: initial;
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+
+    &__details,
+    &__items,
+    &__address {
+      flex: initial;
+      width: 100%;
+    }
+  }
+}

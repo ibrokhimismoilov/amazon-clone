@@ -1,4 +1,4 @@
-import { ADD_TO_BASKET } from "./types";
+import { ADD_TO_BASKET, REMOVE_FROM_BASKET, SET_USER } from "./types";
 
 export const initialState = {
   basket: [],
@@ -18,6 +18,31 @@ const reducer = (state, action) => {
       return {
         ...state,
         basket: [...state.basket, action.item],
+      };
+
+    case REMOVE_FROM_BASKET: {
+      const idx = state.basket.findIndex(
+        (basketItem) => basketItem.id === action.id
+      );
+
+      let newBasket = [...state.basket];
+
+      if (idx >= 0) {
+        newBasket.splice(idx, 1);
+      } else {
+        console.warn(`Can't remove (id: ${action.id}) as its not in basket!`);
+      }
+
+      return {
+        ...state,
+        basket: newBasket,
+      };
+    }
+
+    case SET_USER:
+      return {
+        ...state,
+        user: action.user,
       };
 
     default:

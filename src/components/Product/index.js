@@ -1,6 +1,8 @@
 import React from "react";
 import { useStateValue } from "../../context/StateProvider";
 import { ADD_TO_BASKET } from "../../context/types";
+// eslint-disable-next-line
+
 function Product({ title, img, price, rating, id }) {
   const [{ basket }, dispatch] = useStateValue();
 
@@ -30,8 +32,8 @@ function Product({ title, img, price, rating, id }) {
         <ul className="product__rating">
           {Array(rating)
             .fill()
-            .map((_) => (
-              <li key={id}>⭐️</li>
+            .map((item, index) => (
+              <li key={index}>⭐️</li>
             ))}
         </ul>
       </div>

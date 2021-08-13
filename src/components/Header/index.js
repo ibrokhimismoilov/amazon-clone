@@ -4,12 +4,19 @@ import { IoCartOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import logoImg from "../../assets/images/png/amazon_logo.png";
 import { useStateValue } from "../../context/StateProvider";
+import { auth } from "../../firebase";
 export default function Header() {
-  const [{ basket }] = useStateValue();
+  const [{ basket, user }] = useStateValue();
+
+  const handleAuthentication = () => {
+    if (user) {
+      auth.signOut();
+    }
+  };
 
   return (
     <div className="header">
-      <Link to="/" className="header__logo">
+      <Link to={"/"} className="header__logo">
         <img src={logoImg} alt="amazon" />
       </Link>
       <div className="header__search">
@@ -18,10 +25,18 @@ export default function Header() {
       </div>
 
       <div className="header__nav">
-        <div className="header__option">
-          <span className="header__option-lineOne">Hello gust</span>
-          <span className="header__option-lineTwo">Sign in</span>
-        </div>
+        <Link
+          to={!user && "/login"}
+          onClick={handleAuthentication}
+          className="header__option"
+        >
+          <span className="header__option-lineOne">
+            Hello {user?.email ? user?.email : "User"}
+          </span>
+          <span className="header__option-lineTwo">
+            {user ? "Sign out" : "Sign in"}
+          </span>
+        </Link>
         <div className="header__option">
           <span className="header__option-lineOne">Returns</span>
           <span className="header__option-lineTwo">& Orders</span>

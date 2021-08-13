@@ -24,13 +24,15 @@
     }
   }
 
-  &__sidebar {
-  }
+  //   &__sidebar {
+  //   }
 
   &__item {
     display: flex;
     padding: 10px 0;
-    border-bottom: 1px solid grey;
+    &:not(last-child) {
+      border-bottom: 1px solid grey;
+    }
 
     .img {
       min-width: 180px;
