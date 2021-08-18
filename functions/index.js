@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const express = require("express");
 const cors = require("cors");
 const stripe = require("stripe")(
-  "pk_test_51JNthoAdv8hnqEbOs59wC75ByasI6NHaxWzWFH3kC5oNhV1dV2IyRCtOvCerqDRxSh7mgu6n3ykLbJ2meecZmcoh008sSQNuLG"
+  "sk_test_51JNthoAdv8hnqEbOO0TtfZDGJeePazJJUHdjZxcfqfYwYfcMnyUI648p0u3RBZqqTdkS4PFe210N4eOHdx4ZtDA900JTc6zuOn"
 );
 
 // API
@@ -15,22 +15,25 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 
 // - API routes
-app.get("/", (request, response) => response.status(200).send("hello world"));
+app.get("/", (req, res) => res.status(200).send("hello world"));
 
-app.post("/payments/create", async (requset, response) => {
-  const total = requset?.query?.total;
+app.post("/payments/create", async (req, res) => {
+  const total = req?.query?.total;
 
   console.log("Backend ->", total);
 
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: total, // submits o the currency
-    currency: "usd",
-  });
-
-  //   OK created 2
-  response.status(201).send({
-    clientSecret: paymentIntent.client_secret,
-  });
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: total, // submits o the currency
+      currency: "usd",
+    });
+    //   OK created 2
+    res.status(201).send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (err) {
+    console.log("CATCH ERROR Backend >>>>>", err);
+  }
 });
 
 // - Listen commmand

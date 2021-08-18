@@ -9,30 +9,44 @@ import axios from "../../services/axios";
 
 function Payment() {
   const [{ user, basket }] = useStateValue();
+
+  const history = useHistory();
+  const stripe = useStripe();
+  const elements = useElements();
+
   const [succeeded, setSocceeded] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
   const [disabled, setDisabled] = useState(false);
-  const [clientSecret, setClientSecret] = useState(true);
-  const stripe = useStripe();
-  const elements = useElements();
+  const [clientSecret, setClientSecret] = useState(false);
 
-  const history = useHistory();
+  const getClientSecret = async () => {
+    try {
+      const response = await axios({
+        method: "post",
+        url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
+      });
+      console.log("response >>>", response);
+      setClientSecret(response?.data?.clientSecret);
+    } catch (error) {
+      console.log("Error front>>>", error);
+    }
+  };
 
   useEffect(() => {
-    const getClientSecret = async () => {
-      const response = await axios.post(
-        `/payments/create?total=${getBasketTotal(basket) * 100}`
-      );
-      console.log("response typeof", typeof response.data);
-      console.log("response", response.data);
-      setClientSecret(response?.data?.clientSecret);
-    };
-
     getClientSecret();
+  }, []);
+
+  useEffect(() => {
+    getClientSecret();
+    console.log("SECRET IS ===>", clientSecret);
   }, [basket]);
 
-  console.log("SECRET IS >>>", clientSecret);
+  if (clientSecret) {
+    alert(clientSecret);
+  } else {
+    alert(clientSecret);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,12 +59,15 @@ function Payment() {
         },
       })
       .then(({ paymentIntnent }) => {
-        // payment intent confirmation
         setSocceeded(true);
         setError(false);
         setProcessing(false);
         history.replace("/orders");
+      })
+      .catch((err) => {
+        console.log(err);
       });
+
     console.log("Payload", payload);
   };
 
@@ -106,7 +123,7 @@ function Payment() {
               {error ? <p className="error-text">{error}</p> : null}
               <button
                 className="btn btn__primary"
-                disabled={processing || disabled || succeeded}
+                disabled={clientSecret && (processing || disabled || succeeded)}
               >
                 {processing ? "processing" : "Buy now"}
               </button>

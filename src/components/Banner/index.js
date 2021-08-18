@@ -1,9 +1,9 @@
 import React from "react";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
 import { GrPrevious, GrNext } from "react-icons/gr";
 
 import { SlideData } from "./slideData";
-import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 
 const SlickPrevArrow = ({ currentSlide, slideCount, ...props }) => {
